@@ -26,17 +26,17 @@ public class StringSchema {
     }
 
     public StringSchema required() {
-        required = true;
+        this.required = true;
         return this;
     }
 
     public StringSchema minLength(int length) {
-        minLength = length;
+        this.minLength = length;
         return this;
     }
 
     public StringSchema contains(String string) {
-        contains = string;
+        this.contains = string;
         return this;
     }
 }
