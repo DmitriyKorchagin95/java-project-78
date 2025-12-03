@@ -1,23 +1,23 @@
 package hexlet.code.schemas;
 
 public class NumberSchema {
-    private boolean required;
-    private boolean positive;
-    private boolean range;
+    private boolean requiredEnabled;
+    private boolean positiveEnabled;
+    private boolean rangeEnabled;
     private Integer from;
     private Integer to;
 
     public boolean isValid(Integer value) {
 
         if (value == null) {
-            return !required;
+            return !requiredEnabled;
         }
 
-        if (positive && value <= 0) {
+        if (positiveEnabled && value <= 0) {
             return false;
         }
 
-        if (range && (value < from || value > to)) {
+        if (rangeEnabled && (value < from || value > to)) {
             return false;
         }
 
@@ -27,17 +27,17 @@ public class NumberSchema {
 
 
     public NumberSchema required() {
-        required = true;
+        requiredEnabled = true;
         return this;
     }
 
     public NumberSchema positive() {
-        positive = true;
+        positiveEnabled = true;
         return this;
     }
 
     public NumberSchema range(Integer from, Integer to) {
-        this.range = true;
+        this.rangeEnabled = true;
         this.from = from;
         this.to = to;
         return this;

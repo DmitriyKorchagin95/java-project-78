@@ -1,24 +1,24 @@
 package hexlet.code.schemas;
 
 public class StringSchema {
-    private boolean required;
+    private boolean requiredEnabled;
     private Integer minLength;
     private String contains;
 
     public boolean isValid(String value) {
-        if (required && (value == null || value.isEmpty())) {
+        if (requiredEnabled && (value == null || value.isEmpty())) {
             return false;
         }
 
-        if (!required && value == null) {
+        if (!requiredEnabled && value == null) {
             return true;
         }
 
-        if (required && minLength != null && value.length() < minLength) {
+        if (requiredEnabled && minLength != null && value.length() < minLength) {
             return false;
         }
 
-        if (required && contains != null && !value.contains(contains)) {
+        if (requiredEnabled && contains != null && !value.contains(contains)) {
             return false;
         }
 
@@ -26,7 +26,7 @@ public class StringSchema {
     }
 
     public StringSchema required() {
-        this.required = true;
+        this.requiredEnabled = true;
         return this;
     }
 
