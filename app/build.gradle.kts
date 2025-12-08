@@ -1,6 +1,6 @@
 plugins {
     id("com.github.ben-manes.versions")
-    id("org.sonarqube") version "7.0.1.6134"
+    id("org.sonarqube") version "7.2.0.6526"
     jacoco
     checkstyle
     application
@@ -18,9 +18,6 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.jackson.dataformat.yaml)
-    implementation(libs.jackson.databind)
-    implementation(libs.picocli)
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly(libs.junit.platform.launcher)
