@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StringSchemaTest {
 
@@ -16,7 +17,7 @@ class StringSchemaTest {
     }
 
     @Test
-    @DisplayName("Non-required: null and empty should be valid")
+    @DisplayName("Null and empty should be valid")
     void testNonRequired() {
         var schema = validator.string();
 
@@ -25,8 +26,8 @@ class StringSchemaTest {
     }
 
     @Test
-    @DisplayName("Required: null and empty should be invalid, non-empty valid")
-    void testRquired() {
+    @DisplayName("Null and empty should be invalid, non-empty valid")
+    void testRequired() {
         var schema = validator.string().required();
 
         assertFalse(schema.isValid(null));
@@ -36,7 +37,7 @@ class StringSchemaTest {
     }
 
     @Test
-    @DisplayName("contains(): substring checks according to examples")
+    @DisplayName("Substring checks according to examples")
     void testContains() {
         var schema = validator.string().required();
 
@@ -46,8 +47,8 @@ class StringSchemaTest {
     }
 
     @Test
-    @DisplayName("minLength(): last call overwrites previous one")
-    void tesMminLengthOverwrite() {
+    @DisplayName("Validates min string length, last call overwrites previous one")
+    void testMinLength() {
         var schema = validator.string();
 
         schema.minLength(10);

@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MapSchemaTest {
 
@@ -18,16 +19,16 @@ class MapSchemaTest {
     }
 
     @Test
-    @DisplayName("Non-required: null should be valid")
-    void nonRequired() {
+    @DisplayName("Null should be valid")
+    void testNonRequired() {
         var schema = validator.map();
 
         assertTrue(schema.isValid(null));
     }
 
     @Test
-    @DisplayName("Required: null should be invalid, empty map valid")
-    void required() {
+    @DisplayName("Null should be invalid, empty map valid")
+    void testRequired() {
         var schema = validator.map().required();
 
         assertFalse(schema.isValid(null));
@@ -40,8 +41,8 @@ class MapSchemaTest {
     }
 
     @Test
-    @DisplayName("sizeof(): validates map size according to example")
-    void sizeofRule() {
+    @DisplayName("Validates map size according to example")
+    void testSizeof() {
         var schema = validator.map().sizeof(2);
 
         var data = new HashMap<String, String>();

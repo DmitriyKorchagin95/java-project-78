@@ -1,45 +1,21 @@
 package hexlet.code.schemas;
 
-public class NumberSchema {
-    private boolean requiredEnabled;
-    private boolean positiveEnabled;
-    private boolean rangeEnabled;
-    private Integer from;
-    private Integer to;
+import java.util.Objects;
 
-    public boolean isValid(Integer value) {
-
-        if (value == null) {
-            return !requiredEnabled;
-        }
-
-        if (positiveEnabled && value <= 0) {
-            return false;
-        }
-
-        if (rangeEnabled && (value < from || value > to)) {
-            return false;
-        }
-
-        return true;
-    }
-
-
+public class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema required() {
-        requiredEnabled = true;
+        addCheck("required", Objects::nonNull);
         return this;
     }
 
     public NumberSchema positive() {
-        positiveEnabled = true;
+        addCheck("positive", value -> value == null || value > 0);
         return this;
     }
 
     public NumberSchema range(Integer from, Integer to) {
-        this.rangeEnabled = true;
-        this.from = from;
-        this.to = to;
+        addCheck("range", value -> value == null || (value >= from && value <= to));
         return this;
     }
 }

@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NumberSchemaTest {
 
@@ -16,16 +17,16 @@ class NumberSchemaTest {
     }
 
     @Test
-    @DisplayName("Basic: simple number is valid")
-    void basicValid() {
+    @DisplayName("Simple number is valid")
+    void testNumberValidation() {
         var schema = validator.number();
-        
+
         assertTrue(schema.isValid(5));
     }
 
     @Test
-    @DisplayName("Non-required: null is valid, even with positive()")
-    void nonRequired() {
+    @DisplayName("Null is valid, even with positive()")
+    void testNonRequired() {
         var schema = validator.number();
 
         assertTrue(schema.isValid(null));
@@ -33,8 +34,8 @@ class NumberSchemaTest {
     }
 
     @Test
-    @DisplayName("Required: null is invalid, positive number is valid")
-    void required() {
+    @DisplayName("Null is invalid, positive number is valid")
+    void testRequired() {
         var schema = validator.number().required();
 
         assertFalse(schema.isValid(null));
@@ -42,8 +43,8 @@ class NumberSchemaTest {
     }
 
     @Test
-    @DisplayName("positive(): negative and zero are invalid")
-    void positiveRule() {
+    @DisplayName("Negative and zero are invalid")
+    void testPositive() {
         var schema = validator.number().positive();
 
         assertFalse(schema.isValid(-10));
@@ -51,8 +52,8 @@ class NumberSchemaTest {
     }
 
     @Test
-    @DisplayName("range(): lower and upper bounds inclusive")
-    void range() {
+    @DisplayName("Validates lower and upper bounds(inclusive)")
+    void testRange() {
         var schema = validator.number().range(5, 10);
 
         assertTrue(schema.isValid(5));
