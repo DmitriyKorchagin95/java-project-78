@@ -21,10 +21,7 @@ public final class MapSchema extends BaseSchema<Map<?, ?>> {
         return this;
     }
 
-    private boolean isShapeValid(
-            Map<?, ?> map,
-            Map<String, ? extends BaseSchema<?>> rules
-    ) {
+    private boolean isShapeValid(Map<?, ?> map, Map<String, ? extends BaseSchema<?>> rules) {
         return rules.entrySet().stream()
                 .allMatch(entry -> {
                     var key = entry.getKey();
