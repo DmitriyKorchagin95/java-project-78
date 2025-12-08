@@ -15,18 +15,22 @@ public final class MapSchema extends BaseSchema<Map<?, ?>> {
         return this;
     }
 
-    public MapSchema shape(Map<String, ? extends BaseSchema<?>> rules) {
-        Objects.requireNonNull(rules, "Shaped schema cannot be null");
-        addCheck("shape", map -> map == null || isShapeValid(map, rules));
+    public <T> MapSchema shape(Map<String, BaseSchema<T>> schemas) {
+        Objects.requireNonNull(schemas, "Shaped schema cannot be null");
+        addCheck("shape", map -> map == null || isShapeValid(map, schemas));
         return this;
     }
 
-    private boolean isShapeValid(Map<?, ?> map, Map<String, ? extends BaseSchema<?>> rules) {
-        return rules.entrySet().stream()
+    private <T> boolean isShapeValid(Map<?, ?> map, Map<String, BaseSchema<T>> schemas) {
+        return schemas.entrySet().stream()
                 .allMatch(entry -> {
                     var key = entry.getKey();
                     var schema = entry.getValue();
-                    return schema.isValid(map.get(key));
+
+                    @SuppressWarnings("unchecked")
+                    T value = (T) map.get(key);
+
+                    return schema.isValid(value);
                 });
     }
 }
